@@ -8,7 +8,10 @@ public class NotificationService {
     @Qualifier("emailService")
     private MessageService messageService;
 
-    public void nofity(String message, String recipient) {
+    public NotificationService() {
+    }
+
+    public void notifyUser(String message, String recipient) {
         messageService.sendMessage(message, recipient);
     }
 

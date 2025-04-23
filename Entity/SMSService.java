@@ -3,6 +3,7 @@ package Entity;
 import Annotation.*;
 
 @Component
+@Qualifier("SMSService")
 public class SMSService implements MessageService {
     @Override
     public void sendMessage(String message, String recipient) {
