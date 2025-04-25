@@ -20,9 +20,11 @@ public class ApplicationContext {
             // Duyệt qua tất cả các field trong class để kiểm tra và inject dependencies
             for (Field field : cla.getDeclaredFields()) {
                 if (field.isAnnotationPresent(Autowired.class)) { // Kiểm tra xem field có annotation @Autowired không
-                    Qualifier qualifier = field.getAnnotation(Qualifier.class);
+                    Qualifier qualifier = field.getAnnotation(Qualifier.class); // Kiểm tra xem có annotation @Qualifier
+                                                                                // không
+                    // Nếu có thì lấy giá trị của nó, nếu không thì lấy tên class của field
                     String dependencyName = qualifier != null ? qualifier.value() : field.getType().getSimpleName();
-                    Object fieldInstance = beans.get(dependencyName);
+                    Object fieldInstance = beans.get(dependencyName); // Lấy instance từ beans map theo tên dependency
 
                     if (fieldInstance == null) {
                         for (Object obj : beans.values()) {
