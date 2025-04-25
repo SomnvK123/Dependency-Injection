@@ -9,7 +9,7 @@ public class ApplicationContext {
     private static final Map<String, Object> beans = new HashMap<>();
 
     public void reflectionComponent(Class<?> cla) throws Exception {
-        if (cla.isAnnotationPresent(Component.class)) {
+        if (cla.isAnnotationPresent(Component.class)) { // Kiểm tra xem class có annotation @Component không
             // Tạo instance của class được quét
             Object instance = cla.getDeclaredConstructor().newInstance();
             String beanName = cla.getSimpleName(); // Lưu tên bean theo kiểu class name
@@ -19,7 +19,7 @@ public class ApplicationContext {
 
             // Duyệt qua tất cả các field trong class để kiểm tra và inject dependencies
             for (Field field : cla.getDeclaredFields()) {
-                if (field.isAnnotationPresent(Autowired.class)) {
+                if (field.isAnnotationPresent(Autowired.class)) { // Kiểm tra xem field có annotation @Autowired không
                     Qualifier qualifier = field.getAnnotation(Qualifier.class);
                     String dependencyName = qualifier != null ? qualifier.value() : field.getType().getSimpleName();
                     Object fieldInstance = beans.get(dependencyName);
